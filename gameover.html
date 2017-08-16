@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>SAPollo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+	<link rel="stylesheet" 
+	href="gameover.css"/>
+	<meta charset=UTF-8>
+</head>
+<body>
+<script src = "jquery-3.2.1.min.js"></script>
+<script language="Javascript">
+$(document).ready(function(){
+	var momentScore = document.getElementById("scoreAtMoment").innerText = 'Highscore:' + localStorage.getItem('score');
+					momentScore.color ="rot";
+})	
+</script>	
+	<center>	
+		<div>		
+			<a href="sapollo.html">
+				<img src="play2.png" alt="play" id="play"/>
+				<a href="Start.html">
+					<img src="homebutton.png" alt="home" id="home"/>
+					<a href="Shop.html">
+					<img src="shop button.png" alt="shop" id="shop"/>
+				</a>
+			</div>
+			<div style="color:red;"style="color:white;"id="scoreAtMoment"></div>
+		</center>
+</body>
+</html>

@@ -1,0 +1,73 @@
+body {
+	background-image: url("hintergrundUsable.png");
+	background-attachment: fixed;
+	background-position: center; 
+	background-repeat: no-repeat; 
+	background-color: black;
+	color:white;
+	border: 5px ;
+	border-bottom:;
+	border-bottom-color:;
+	border-bottom-style:;
+	border-bottom-width:;
+	border-collapse:;
+	border-color: white;
+	border-top:;
+	float:;
+	font-family:;
+	font:;
+	font-size:;
+	font-style:;
+	
+}
+.divboxclass {
+	background-attachment:;
+	background-color:;
+	background-image:;
+	background-position:;
+	background-repeat:;
+	color:;
+	border:;
+	border-bottom:;
+	border-bottom-color:;
+	border-bottom-style:;
+	border-bottom-width:;
+	border-collapse:;
+	border-color:;
+	border-top:;
+	float:;
+	font-family:;
+	font:;
+	font-size:;
+	font-style:;
+}
+
+#Space {
+	background-attachment:;
+	background-color:;
+	background-image:;
+	background-position:;
+	background-repeat:;
+	color: white;
+	border: 5px;
+	border-bottom:;
+	border-bottom-color:;
+	border-bottom-style:;
+	border-bottom-width:;
+	border-collapse:;
+	border-color: white;
+	border-top:;
+	float:;
+	font-family:;
+	font:;
+	font-size:120px;
+	font-style:;
+	margin-top:470px;
+}
+
+#raketenPod {
+
+}
+#Rakete {
+   margin-top: 450;
+}

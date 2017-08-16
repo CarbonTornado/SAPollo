@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<script src = "jquery-3.2.1.min.js"></script>
+	<title>SAPollo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+	<link rel="stylesheet" 
+	href="vorlage.css"/>
+	<script language="JavaScript">
+		$(document).ready(function(){
+			
+			function white(Space) {
+				//var white = document.getElementById('Space');
+				document.getElementById('Space').style.color = "white" ;
+				
+			}				
+
+
+			function black(Space) {
+				//var black = document.getElementById('Space');
+				document.getElementById('Space').style.color = "black" ;
+				
+			}
+			window.onkeydown = start;
+			window.onkeyup = start;
+
+			var bewegung = 450;
+
+			setInterval(function(){
+				white();
+				console.log("white");
+			}, 2000);
+
+
+			setTimeout(function() {
+				setInterval(function(){
+					black();
+					console.log("black");
+				}, 2000);
+			}, 1000);
+
+
+			function moving(Rakete){
+				bewegung = bewegung - 1;
+				document.getElementById('Rakete').style.marginTop = bewegung + "px";
+			}
+
+			function rkdelete(){
+				document.getElementById("Schrift").removeChild(Space);
+			}
+
+			function start(evt){
+				switch (evt.keyCode) {
+					case 32:
+					go();
+					rkdelete();
+					break;
+				}}
+				function go(){
+					setInterval(function(){
+						moving();
+						if (bewegung == -850) {
+							var win = window.open('sapollo.html', '_blank');
+  							win.focus();
+							//window.open("sapollo.html");
+							var ww = window.open(window.location, '_self');
+							ww.close();
+							localStorage.setItem("score", 0);
+						}}, 5)
+				}			
+			});
+		</script>
+	</head>
+	<body>
+		<center>
+		<div id="Schrift">
+		<div id = "Space">Press Space to start</div>
+		</div>
+		</center>
+		<center>
+			<div id="Rakete"><img src="assets/img/Rakete 1.0.png">
+			<br><img src="assets/img/thrusterFlammeMed.gif"></div>
+			<br/>
+
+		</center>
+	</body>
+	</html>

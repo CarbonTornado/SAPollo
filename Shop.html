@@ -1,0 +1,750 @@
+<html>
+	<head>
+	<title>SAPollo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+		<link rel="stylesheet" href="stylesheet.css" />
+		
+		
+	</head>
+	
+	<body id="bodys">
+		
+		
+		<div id="showSpace"></div>
+		
+		<script language="Javascript">
+				
+				var skin = localStorage.getItem("skin");
+				var currentSkin = document.getElementById("localSkin");
+				var score = parseInt(localStorage.getItem('score'));
+				var savedSkin = localStorage.getItem('SkinTakes');
+				var skinOne = localStorage.getItem('SkinOne');
+				var skinTwo = localStorage.getItem('SkinTwo');
+				var skinThree = localStorage.getItem('SkinThree');
+				var skinFour = localStorage.getItem('SkinFour');
+				var skinFive = localStorage.getItem('SkinFive');
+				var skinSix = localStorage.getItem('SkinSix');
+				var skinSeven = localStorage.getItem('SkinSeven');
+				var skinEight = localStorage.getItem('SkinEight');
+				var skinNine = localStorage.getItem('SkinNine');
+				var skinTen = localStorage.getItem('SkinTen');
+				var skinEleven = localStorage.getItem('SkinEleven');
+				
+				var showPlace = document.getElementById("showSpace");
+				var rocketSkin = document.createElement("img");
+				showPlace.appendChild(rocketSkin);
+				console.log("Start!");
+
+				function scoreAtMoment(){
+					var momentScore = document.getElementById("scoreAtMoment").innerText = 'Geld:' + localStorage.getItem('score');
+					momentScore.color ="white";
+				}
+				
+				setInterval(function(){
+				changeSkin(skin,currentSkin)
+				scoreAtMoment(score);
+				}, 1000);
+				
+				function resetScoreCach(score){
+				
+					var resetConfirm = confirm("willst du wirklich deine Käufe resetten?");
+					if(resetConfirm == true){	
+						localStorage.removeItem("SkinOne");
+						localStorage.removeItem("SkinTwo");
+						localStorage.removeItem("SkinThree");
+						localStorage.removeItem("SkinFour");
+						localStorage.removeItem("SkinFive");
+						localStorage.removeItem("SkinSix");
+						localStorage.removeItem("SkinSeven");
+						localStorage.removeItem("SkinEight");
+						localStorage.removeItem("SkinNine");
+						localStorage.removeItem("SkinTen");
+						localStorage.removeItem("SkinEleven");
+				
+						localStorage.setItem("score", 0);
+						localStorage.setItem("skin", 0);
+						window.location.reload(); 
+					}
+				
+				}
+
+				function goBack(){
+				window.location.assign("sapollo.html");
+				}
+				
+				function BuyOne(score,skinOne){
+					console.log("localStorage:" + skinOne);
+					if(skinOne){
+						if(localStorage.getItem("skinOne") == "True"){
+						console.log("Skin 1 schon gekauft!");
+						localStorage.setItem("skin","1");
+
+						}else{
+							if(localStorage.getItem("score") > 2000){
+								var score = localStorag.getItem("score");
+								score = score - 2000;
+								localStorag.setItem("score", score);
+								localStorage.setItem("SkinOne","True");
+								localStorage.setItem("skin",1);
+								console.log("Skin1 wurde erfolgreich gekauft!");
+								
+								location.reload();
+							}else{
+							alert("Du hast zu wenig Geld um Skin 1 zu kaufen");
+							
+							}
+
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 2000){
+							var score = localStorage.getItem("score");
+								score = score - 2000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",1);
+							localStorage.setItem("SkinOne","True");
+							console.log("Skin1 wurde erfolgreich gekauft!");
+							
+							document.getElementById("scoreAtMoment").innerText= localStorage.getItem("score");
+							
+							}
+							else{
+							alert("Du hast zu wenig Geld um Skin 1 zu kaufen");
+							
+							
+							
+							}
+						
+						
+						
+						}
+					window.location.reload(); 
+	
+				}
+				
+				function BuyTwo(score,skinTwo){
+					console.log("localStorage:" + skinTwo);
+					if(skinTwo){
+						if(skinTwo == "True"){
+						console.log("Skin 2 schon gekauft!");
+						localStorage.setItem("skin",2);
+
+						}else{
+							if(localStorage.getItem("score") > 4000){
+							var score = localStorage.getItem("score");
+								score = score - 4000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",2);
+							console.log("Skin2 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinTwo", "True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 2 zu kaufen");
+							
+							}
+	
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 4000){
+							var score = localStorage.getItem("score");
+								score = score - 4000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",2);
+							console.log("Skin2 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinTwo", "True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 2 zu kaufen");
+							
+							}
+
+						}
+						window.location.reload();  
+					}
+								
+					//________________________________________________________________________________________________________________________
+
+					function BuyThree(score,skinThree){
+					if(skinThree){
+						if(skinThree == "True"){
+						console.log("Skin 3 schon gekauft!");
+						localStorage.setItem("skin",3);
+
+						}else{
+							if(localStorage.getItem("score") > 5000){
+							var score = localStorage.getItem("score");
+								score = score - 5000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",3);
+							
+							console.log("Skin3 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinThree", "True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 3 zu kaufen");
+							
+							}
+
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 5000){
+							var score = localStorage.getItem("score");
+								score = score - 5000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",3);
+							console.log("Skin3 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinThree", "True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 3 zu kaufen");
+							
+							}
+
+						}
+						window.location.reload();  
+					}
+						
+					function BuyFour(score,skinFour){
+					console.log(skinFour);
+					if(skinFour){
+						if(skinFour == "True"){
+						console.log("Skin 4 schon gekauft!");
+						localStorage.setItem("skin",4);
+
+						}else{
+							if(localStorage.getItem("score") > 10000){
+							var score = localStorage.getItem("score");
+								score = score - 10000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",4);
+							console.log("Skin4 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinFour","True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 4 zu kaufen");
+							
+							}
+
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 10000){
+							var score = localStorage.getItem("score");
+								score = score - 10000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",4);
+							console.log("Skin4 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinFour","True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 4 zu kaufen");
+							
+							}
+						}
+					window.location.reload();  
+					}
+					
+					function BuyFive(score,skinFive){
+					console.log("localStorage:" + skinFive);
+					if(skinFive){
+						if(skinFive == "True"){
+						console.log("Skin 5 schon gekauft!");
+						localStorage.setItem("skin",5);
+
+						}else{
+							alert("Hi");
+							if(localStorage.getItem("score") > 15000){
+							var score = localStorage.getItem("score");
+								score = score - 15000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",5);
+							console.log("Skin5 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinFive", "True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 5 zu kaufen");
+							
+							}
+						
+						
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 15000){
+							var score = localStorage.getItem("score");
+								score = score - 15000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",5);
+							console.log("Skin5 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinFive","True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 5 zu kaufen");
+							
+							}
+						}
+					window.location.reload();  
+					}
+					
+					function BuySix(score,skinSix){
+					console.log("localStorage:" + skinSix);
+					if(skinSix){
+						if(skinSix == "True"){
+						console.log("Skin 6 schon gekauft!");
+						localStorage.setItem("skin",6);
+						
+						}else{
+							if(localStorage.getItem("score") > 20000){
+							var score = localStorage.getItem("score");
+								score = score - 20000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",6);
+							console.log("Skin6 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinSix", "True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 6 zu kaufen");
+							
+							}
+
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 20000){
+							var score = localStorage.getItem("score");
+								score = score - 20000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",6);
+							console.log("Skin6 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinSix", "True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 6 zu kaufen");
+							
+							}
+						}
+					window.location.reload();  
+					}
+					
+					function BuySeven(score,skinSeven){
+					console.log("localStorage:" + skinSeven);
+					if(skinSeven){
+						if(skinSeven == "True"){
+						console.log("Skin 7 schon gekauft!");
+						localStorage.setItem("skin",7);
+
+						}else{
+							if(localStorage.getItem("score") > 25000){
+							var score = localStorage.getItem("score");
+								score = score - 25000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",7);
+							console.log("Skin7 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinSeven", "True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 7 zu kaufen");
+							
+							}
+
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 25000){
+							var score = localStorage.getItem("score");
+								score = score - 25000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",7);
+							console.log("Skin7 wurde erfolgreich gekauft!");
+							localStorage.setItem("SkinSeven", "True");
+							}else{
+							alert("Du hast zu wenig Geld um Skin 7 zu kaufen");
+							
+							}
+						}
+					window.location.reload();  
+					}
+
+				function BuyEight(score,skinEight){
+					console.log("localStorage:" + skinEight);
+					if(skinEight){
+						if(skinEight == "True"){
+						console.log("Skin 8 schon gekauft!");
+						localStorage.setItem("skin","8");
+
+						}else{
+							if(localStorage.getItem("score") > 30000){
+								var score = localStorag.getItem("score");
+								score = score - 30000;
+								localStorag.setItem("score", score);
+								localStorage.setItem("SkinEight","True");
+								localStorage.setItem("skin",8);
+								console.log("Skin8 wurde erfolgreich gekauft!");
+								
+								location.reload();
+							}else{
+							alert("Du hast zu wenig Geld um Skin 8 zu kaufen");
+							
+							}
+	
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 30000){
+							var score = localStorage.getItem("score");
+								score = score - 30000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",8);
+							localStorage.setItem("SkinEight","True");
+							console.log("Skin8 wurde erfolgreich gekauft!");
+							
+							document.getElementById("scoreAtMoment").innerText= localStorage.getItem("score");
+							
+							}
+							else{
+							alert("Du hast zu wenig Geld um Skin 8 zu kaufen");
+	
+							}
+
+						}
+					window.location.reload(); 
+
+				}
+				
+				function BuyNine(score,skinNine){
+					console.log("localStorage:" + skinNine);
+					if(skinNine){
+						if(skinNine == "True"){
+						console.log("Skin 9 schon gekauft!");
+						localStorage.setItem("skin","9");
+
+						}else{
+							if(localStorage.getItem("score") > 35000){
+								var score = localStorag.getItem("score");
+								score = score -35000;
+								localStorag.setItem("score", score);
+								localStorage.setItem("SkinNine","True");
+								localStorage.setItem("skin",9);
+								console.log("Skin9 wurde erfolgreich gekauft!");
+								
+								location.reload();
+							}else{
+							alert("Du hast zu wenig Geld um Skin 9 zu kaufen");
+							
+							}
+
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 35000){
+							var score = localStorage.getItem("score");
+								score = score - 35000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",1);
+							localStorage.setItem("SkinNine","True");
+							console.log("Skin9 wurde erfolgreich gekauft!");
+							
+							document.getElementById("scoreAtMoment").innerText= localStorage.getItem("score");
+							
+							}
+							else{
+							alert("Du hast zu wenig Geld um Skin 9 zu kaufen");
+
+							}
+
+						}
+					window.location.reload(); 
+
+				}
+				
+				function BuyTen(score,skinTen){
+					console.log("localStorage:" + skinTen);
+					if(skinTen){
+						if(localStorage.getItem("SkinTen") == "True"){
+						console.log("Skin 10 schon gekauft!");
+						localStorage.setItem("skin","10");
+						
+						
+						
+						}else{
+							if(localStorage.getItem("score") > 40000){
+								var score = localStorage.getItem("score");
+								score = score - 40000;
+								localStorag.setItem("score", score);
+								localStorage.setItem("Skinten","True");
+								localStorage.setItem("skin",10);
+								console.log("Skin10 wurde erfolgreich gekauft!");
+								
+								location.reload();
+							}else{
+							alert("Du hast zu wenig Geld um Skin 10 zu kaufen");
+							
+							}
+
+						}
+					
+					
+					
+					}else{
+						if(localStorage.getItem("score") > 40000){
+							var score = localStorage.getItem("score");
+								score = score - 40000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",10);
+							localStorage.setItem("SkinTen","True");
+							console.log("Skin10 wurde erfolgreich gekauft!");
+							
+							document.getElementById("scoreAtMoment").innerText= localStorage.getItem("score");
+							
+							}
+							else{
+							alert("Du hast zu wenig Geld um Skin 10 zu kaufen");
+
+							}
+
+						}
+					window.location.reload(); 
+	
+				}
+				
+				function BuyEleven(score,skinEleven){
+					console.log("localStorage:" + skinEleven);
+					if(skinEleven){
+						if(localStorage.getItem("skinEleven") == "True"){
+						console.log("Skin 11 schon gekauft!");
+						localStorage.setItem("skin","11");
+
+						}else{
+							if(localStorage.getItem("score") > 45000){
+								var score = localStorag.getItem("score");
+								score = score - 45000;
+								localStorag.setItem("score", score);
+								localStorage.setItem("SkinEleven","True");
+								localStorage.setItem("skin",11);
+								console.log("Skin11 wurde erfolgreich gekauft!");
+								
+								location.reload();
+							}else{
+							alert("Du hast zu wenig Geld um Skin 11 zu kaufen");
+							
+							}
+
+						}
+
+					}else{
+						if(localStorage.getItem("score") > 45000){
+							var score = localStorage.getItem("score");
+								score = score - 45000;
+								localStorage.setItem("score", score);
+							localStorage.setItem("skin",11);
+							localStorage.setItem("SkinEleven","True");
+							console.log("Skin11 wurde erfolgreich gekauft!");
+							
+							document.getElementById("scoreAtMoment").innerText= localStorage.getItem("score");
+							
+							}
+							else{
+							alert("Du hast zu wenig Geld um Skin 11 zu kaufen");
+
+							}
+
+						}
+					window.location.reload(); 
+	
+				}
+				
+
+			function changeSkin(skin,currentSkin){
+				
+				if(localStorage.getItem("skin") == 0){
+					document.getElementById("localSkin").src="Skins/rakete.png";
+				}else if(localStorage.getItem("skin") == "1"){
+					document.getElementById("localSkin").src ="Skins/Rakete 2.0.png";
+				}else if(localStorage.getItem("skin") == 2){
+					document.getElementById("localSkin").src = "Skins/Drachev3.gif";
+				}else if(localStorage.getItem("skin") == 3){
+					document.getElementById("localSkin").src = "Skins/Nyancat.gif";
+				}else if(localStorage.getItem("skin") == 4){
+					document.getElementById("localSkin").src = "Skins/SWagMaN.gif";
+				}else if(localStorage.getItem("skin") == 5){
+					document.getElementById("localSkin").src = "Skins/SAP.gif";
+				}else if(localStorage.getItem("skin") == 6){
+					document.getElementById("localSkin").src = "Skins/Raumschiff(ufo).png";
+				}else if(localStorage.getItem("skin") == 7){
+					document.getElementById("localSkin").src = "Skins/Shuttle.png";
+				}else if(localStorage.getItem("skin") == 8){
+					document.getElementById("localSkin").src = "Skins/SpaceShuttle.png";
+				}else if(localStorage.getItem("skin") == 9){
+					document.getElementById("localSkin").src = "Skins/kuhelesrahumshihifscin.png";
+				}else if(localStorage.getItem("skin") == 10){
+					document.getElementById("localSkin").src = "Skins/Einhorn.png";
+				}else if(localStorage.getItem("skin") == 11){
+					document.getElementById("localSkin").src = "Skins/Shuttle.png";
+				}else{
+				console.log("Fehler beim Wechseln des Skins!");
+				console.log(localStorage.getItem("skin"));
+				}
+			}
+
+		</script>	
+		
+		<table id="mainTable">
+<!--________________________________________________________________________________________________________________________-->		
+			<tr id="firstRow" style="width:100%;">
+				<td >
+					<div style="color:yellow;"style="color:white;"id="scoreAtMoment"></div>				
+				</td>
+				<td id="picOne">
+					<div style="widht:200px;"><center><img src="Skins/Rakete 2.0 - Shop.png" alt="Schwarze Rakete"></center></div>
+				</td>
+				
+				<td id="picTwo">
+					<div ><center><img src="Skins/Drachev3.png" alt="Drache"></center></div>
+				</td>
+				
+				<td id="picThree" style="widht:200px;">
+					<div><center><img src="Skins/Nyancat.gif" alt="Schwarze Rakete"></center></div>
+				</td>
+				
+				<td id="picFour" style="widht:200px;">
+					<div><center><img src="Skins/SWagMaN.gif" alt="Schwarze Rakete"></center></div>
+				</td>
+					
+				<td id="picFive">
+					<div style="wihdt:400px;"><center><img src="Skins/SAP.gif" alt="Schwarze Rakete"></center></div>
+				</td>
+				
+				<td id="picSix">
+					<div style="wihdt:200px;"><center><img src="Skins/Raumschiff(ufo).png" alt="Schwarze Rakete"></center></div>
+				</td>
+				
+				<td id="picSeven" style="widht:200px;">
+					<div style="wihdt:200px;"><center><img src="Skins/Shuttle.png" alt="Schwarze Rakete"></center></div>
+				</td>
+				
+				<td>
+					<div style="wihdt:200px;"><center><img src="Skins/SpaceShuttle.png" alt="Schwarze Rakete"></center></div>
+				</td>
+				
+				<td>
+					<div style="wihdt:200px;"><center><img src="Skins/kuhelesrahumshihifscin.png" alt="Schwarze Rakete"></center></div>
+				</td>
+				
+				<td>
+					<div style="wihdt:200px;"><center><img src="Skins/Einhorn.png" alt="Schwarze Rakete"></center></div>
+				</td>
+				
+				<td>
+					<div style="wihdt:200px;"><center><img src="Skins/Shuttle.png" alt="Schwarze Rakete"></center></div>
+				</td>
+
+			</tr>
+<!--________________________________________________________________________________________________________________________-->
+			<tr >
+				<td>
+								
+				</td>
+					
+				<td>
+					<center><p>2000€</p></center>
+				</td>
+				
+				<td>
+					<center><p>4000€</p></center>
+				</td>
+				
+				<td>
+					<center><p>5000€</p></center>
+				</td>
+					
+				<td>
+					<center><p>10000€</p></center>
+				</td>
+				
+				<td>
+					<center><p>15000€</p></center>
+				</td>
+				
+				<td>
+					<center><p>20000€</p></center>
+				</td>
+				
+				<td>
+					<center><p>25000€</p></center>
+				</td>
+				
+				<td>
+					<center><p>30000€</p></center>
+				</td>
+				
+				<td>
+					<center><p>35000€</p></center>
+				</td>
+				
+				<td>
+					<center><p>40000€</p></center>
+				</td>
+				
+				<td>
+					<center><p>45000€</p></center>
+				</td>
+			
+			</tr>
+
+			
+			<tr>
+				<td style="widht: 300px;">
+					<center><input style="background-color:red;"type="button" value="reset" onclick="resetScoreCach(score)"></center>
+				</td>
+				<td id="one" style="widht: 300px;">
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuyOne(score,skinOne)"></center>
+				</td>
+				
+				<td id="two">
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuyTwo(score,skinTwo)"></center>
+				</td>
+				
+				<td id="three">
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuyThree(score,skinThree)"></center>
+				</td>
+				
+				<td>
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuyFour(score,skinFour)"></center>
+				</td>
+					
+				<td>
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuyFive(score,skinFive)"></center>
+				</td>
+				
+				<td>
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuySix(score,skinSix)"></center>
+				</td>
+				
+				<td>
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuySeven(score,skinSeven)"></center>
+				</td>
+					
+				<td>
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuyEight(score,skinEight)"></center>
+				</td>
+					
+				<td>
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuyNine(score,skinNine)"></center>
+				</td>
+				
+				<td>
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuyTen(score,skinTen)"></center>
+				</td>
+				
+				<td>
+					<center><input style="background-color:yellow;"type="button" value="Kaufen" onclick="BuyEleven(score,skinEleven)"></center>
+				</td>
+				
+				<td>
+					<center><input style="background-color:green;"type="button" value="Zurück zum Spiel" onclick="goBack()"></center>
+				</td>
+				
+			
+			</tr>
+			
+		</table>
+		<h3 style="color: white;">Momentaner Skin:</h3><br/>
+		<div><img id="localSkin"></div>
+	</body>
+
+
+
+
+</html>

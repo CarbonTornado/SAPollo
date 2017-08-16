@@ -1,0 +1,124 @@
+body {
+	overflow: hidden;
+	background-repeat: repeat-x;
+	background-color:black;
+}
+
+#Hintergrundbild {
+	height: 1090px;
+	width: 1500px;
+	overflow: hidden;
+	background-image: url('alexandermagdenweltraum.jpeg');
+	float:left;
+	background-repeat: repeat;
+	z-index:-1;
+}
+
+#Hintergrundbild2 {
+	height: 1090px;
+	width: 1500px;
+	overflow: hidden;
+	background-image: url('alexandermagdenweltraum.jpeg');
+	float: left;
+	background-repeat: repeat;
+	z-index:-1;
+}
+
+#spielfeld{
+	margin-top: 0px;
+	height: 1090px;
+	width: 1500px;
+	border: 5px;
+	background-repeat: repeat-x;
+}
+
+#rkt{
+	position:absolute;
+	margin-top: 750px;
+	z-index:2;
+	//width:43px;
+	//height:155px;
+}
+
+#score{
+	float:left;
+	border: 5px;
+	border-color: white;
+	color: white;
+}
+.imga1{
+	//background-color: blue;
+	z-index:4;
+	width:50px;
+	height:50px;
+}
+.imga2{
+	//background-color: rot;
+	z-index:4;
+	width:50px;
+	height:50px;
+}
+.imga3{
+	//background-color: yellow;
+	z-index:4;
+	width:50px;
+	height:50px;
+}
+.imga4{
+	//background-color: green;
+	z-index:4;
+	width:50px;
+	height:50px;
+}
+.imga5{
+	//background-color: white;
+	z-index:4;
+	width:50px;
+	height:50px;
+}
+.imga6{
+	//background-color: purple;
+	z-index:4;
+	width:50px;
+	height:50px;
+}
+.imga7{
+	//background-color: limegreen;
+	z-index:4;
+	width:50px;
+	height:50px;
+}
+.imga8{
+	//background-color: lightblue;
+	z-index:4;
+	width:50px;
+	height:50px;
+}
+.powerup{
+	height: 50px;
+	width: 50px;
+}
+
+#Stopp {
+	font-size: 50;
+	color: white;
+	margin-top: 5px;
+	margin-left: 1750px;
+}
+#mainTable{
+	border-style:solid;
+	border-color:#FFBF00;
+	color:white;
+	font-size:15px;
+	font-family:Arial;
+	border-collapse: separate;
+	
+}
+#bodys{
+	background-image: url("https://vignette2.wikia.nocookie.net/memoryalpha/images/d/d7/Sternenbasis_1.jpg/revision/latest?cb=20110717080326&path-prefix=de");
+	background-size: cover;
+	
+	
+	
+	
+}

@@ -1,0 +1,30 @@
+body{
+	background-image: url("Game over.png");
+	background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+#scoreAtMoment
+{
+	height:200px;
+	width:200px;
+	margin-top:0px;	
+}
+
+#play {
+	height:200px;
+	width:200px;
+	margin-top:500px;
+}
+#shop {
+	height:200px;
+	width:200px;
+	margin-top:500px;
+	margin-left:300px;
+}
+#home{
+	height:200px;
+	width:200px;
+	margin-top:500px;
+	margin-left:300px;
+	
+}

@@ -1,0 +1,16 @@
+#raketenPod {
+
+}
+#Rakete {
+   margin-top: 450;
+}
+
+body {
+	background-image: url("hintergrundUsable.png");
+	background-attachment: fixed;
+	background-position: center; 
+	background-repeat: no-repeat; 
+	background-size: cover;
+}
+
+

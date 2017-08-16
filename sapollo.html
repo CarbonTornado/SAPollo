@@ -1,0 +1,807 @@
+<html>
+	<head>
+		<title>SAPollo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
+		<link rel="stylesheet" 
+			  href="stylesheet.css"/>
+		<embed src="Bad Raiders - Shooting stars (Instrumental).mp3" loop="true" autostart="true" hidden="true" width="0" height="0" />
+		<script src = "jquery-3.2.1.min.js"></script>
+		<script language="JavaScript">
+		$(document).ready(function(){
+			var backgroundPosY = 0;
+			var backgroundPosY2 = -1090;
+			var bewegung = 0;
+			var bildschirmbreite = 1500;
+			var rocketwidth = parseInt(document.getElementById("rkt").style.width);
+			var enemies = new Array();
+			var enemySpeed = 5;
+			var enemyAmountSpawn = 1;
+			var spawnTime = 0;
+			var spawnMaxTime = 60;
+			var powerups = new Array();
+			var enemyAmountSpawnP = 1;
+			var spawnTimeP = 0;
+			var spawnMaxTimeP = 350;
+			var MissleSpeed = 10;
+			var schuesse = new Array();
+			var zahlId = 1; //Variable fuer die Id der enemydivs
+			var zahlIdPowerup = 1; //Variable fuer die Id der powerupdivs
+			var shield = false;
+			var extraHerzen = 0;
+			var hit = false;
+			var n = 0;//laufvariable
+			var i = 0;//laufvariable
+			var f = 0;//laufvariable
+			var m = 0;//laufvariable
+			//setup funktionen
+			window.onkeydown = down;
+			window.onkeyup=up;
+
+			$(document).ready(function(){
+				
+				setInterval(function(){
+					update();
+					Time();
+				}, 10);
+			});
+			
+			var time  = 0;
+			
+			var waitingTime = 20;
+			
+			function update(){
+				backgroundUpdate();
+				moveRocket();
+				spawnEnemy();
+				moveEnemies();
+				changeDifficulty();
+				deleteEnemies();
+				deletePowerUp();
+				updateShoots();
+				deleteShoots();
+				if (kollision() == true) {
+				window.location = ('gameover.html');
+				}
+				if(powerups.length!=0){
+					collectPowerup();
+				}
+				
+				skinChanger();
+				if(schuesse.length!=0){
+					kollisionLaser();
+				
+				}
+				spawnPowerup();
+				movePowerups();
+			}
+			
+			function backgroundUpdate(){
+				backgroundPosY += 3;
+				document.getElementById('Hintergrundbild').style.marginTop = backgroundPosY;
+				
+				backgroundPosY2 += 3;
+				document.getElementById('Hintergrundbild2').style.marginTop = backgroundPosY2;
+				
+				if (backgroundPosY > 1090){
+				backgroundPosY = -1080;
+				}
+				if (backgroundPosY2 > 1090){
+				backgroundPosY2 = -1080;
+				}
+			
+			
+			}
+			
+			function moveRocket(){
+				
+				var posX = document.getElementById('rkt').style.marginLeft;
+				posX = posX.substr(0, posX.length - 2);
+				posX = parseInt(posX);
+				
+				posX += bewegung;
+				
+				if (posX < 0){
+					posX = 0}
+				else if(posX > bildschirmbreite-rocketwidth){
+					posX = bildschirmbreite-rocketwidth}
+				else{}
+					
+				document.getElementById('rkt').style.marginLeft = posX + "px";
+			
+			}
+			
+			
+			function skinChanger(){
+			var skin = parseInt(localStorage.getItem("skin"));
+			console.log(skin);
+			if(skin == 0){
+				document.getElementById("rktImgChange").src ="Skins/rakete.png";
+			}else if(skin == 1){
+				document.getElementById("rktImgChange").src ="Skins/Rakete 2.0.png";
+			}else if(skin == 2){
+				document.getElementById("rktImgChange").src ="Skins/Drachev3.png";
+				console.log("Change to two");
+			}else if(skin == 3){
+				document.getElementById("rktImgChange").src ="Skins/Nyancat.gif";
+			}else if(skin == 4){
+				document.getElementById("rktImgChange").src ="Skins/SWagMaN.gif";
+			}else if(skin == 5){
+				document.getElementById("rktImgChange").src ="Skins/SAP.gif";
+				console.log("SAP");
+			}else if(skin == 6){
+				document.getElementById("rktImgChange").src ="Skins/Raumschiff(ufo).png";
+			}else if(skin == 7){
+				document.getElementById("rktImgChange").src ="Skins/Shuttle.png";
+			}else if(skin == 8){
+				document.getElementById("rktImgChange").src ="Skins/SpaceShuttle.png";
+			}else if(skin == 9){
+				document.getElementById("rktImgChange").src ="Skins/kuhelesrahumshihifscin.png";
+			}else if(skin == 10){
+				document.getElementById("rktImgChange").src ="Skins/Einhorn.png";
+			}else if(skin == 11){
+				document.getElementById("rktImgChange").src ="Skins/Shuttle.png";
+			}else{
+			alert("Fehler mit Scorevariable");
+			}
+			}
+			
+			function down(evt){
+				switch(evt.keyCode){
+					case 32:
+						if (schuesse.length<1){
+							createShoot();
+						}
+						break;
+					case 70:
+						if (schuesse.length<1){
+							createShoot();
+						}
+						break;
+					case 37:
+						bewegung = -5;
+						break;
+					case 39:
+						bewegung = 5;
+						break;
+					case 76:
+						window.location.assign("Shop.html");
+						break;
+					case 13: //Pause
+						stop('Test');
+						break;
+					default:
+						break;
+				}
+			}	
+			
+			function up(evt){
+				switch(evt.keyCode){
+					case 37:
+						bewegung = 0;
+						break;
+					case 39:
+						bewegung = 0;
+						break;
+					default:
+						break;
+				}
+			
+			}
+			
+			
+			function Time () {
+				if(time < waitingTime){				
+					time++;
+					//console.log(time);
+				}
+				else{ 
+					//TODO score erhöhen
+					var score = parseInt(localStorage.getItem("score"));
+					
+					//console.log(score);
+					//localScore = score+10;
+					//console.log("localScore:" + localScore);
+					localStorage.setItem("score", score + 10);
+					time = 0;
+					document.getElementById("score").innerText = score;
+				}
+			}
+			
+			function kollision () {
+			hit = false;
+
+				for (var i = 0; i<enemies.length;i++) {
+					var as = enemies[i];
+					var asTop = as.style.marginTop;
+					var asLeft = as.style.marginLeft;
+					var rk = document.getElementById("rkt");
+					var rkLeft = rk.style.marginLeft;
+					//var rkTop = rk.style.marginTop;
+					//console.log(rkLeft,asLeft,asTop);
+					//console.log(rkTop);
+					asTop = parseInt(asTop);
+					asLeft = parseInt(asLeft);
+					rkLeft = parseInt(rkLeft);
+					// rkTop = parseInt(rkTop);
+					
+					var difTop = Math.abs(asTop-750);
+					var difLeft = Math.abs(asLeft-rkLeft);
+					
+					if(difTop<50 && difLeft<50) {
+					
+						if (shield == false){
+						
+							if (extraHerzen == 0 ||  extraHerzen<0){
+								hit = true;
+								console.log("Getroffen!");
+							}else{
+								setTimeout(function(){
+									extraHerzen= extraHerzen-1;
+									if (extraHerzen<0){
+										hit=true;
+									}
+									console.log("-Herz");
+								},1000);
+							break;
+							}
+							
+						}else{
+							setTimeout(function(){
+								shield= false;
+								console.log("-Schild");
+							},1000);
+						break;
+						}					
+
+					}
+		
+						
+				}
+
+			return hit;
+			}
+			
+			//asteroids spawn
+			
+			function spawnEnemy(){
+				if (spawnTime < spawnMaxTime) {
+					spawnTime++;
+				} else {
+					if (enemies.length < 25){
+						spawnTime = 0;
+						for(counter = 0; counter < enemyAmountSpawn; counter++){
+							var minPos = -50;
+							var maxPos = 1500;
+							var pos = Math.floor(Math.random() * (maxPos - minPos)) + minPos;
+							var minType = 1;
+							var maxType = 9;
+							var type = Math.floor(Math.random() * (maxType - minType)) + minType;
+
+							enemyGenerator(pos, type, zahlId);
+							zahlId++;
+						}
+					}
+				}
+			}
+			
+			function enemyGenerator(pos, type,counter){
+				var spielfeld= document.getElementById("spielfeld");
+				
+				var enemydiv = document.createElement("div");
+				enemies.push(enemydiv);
+				//console.log(enemies);
+				enemydiv.style.position= "absolute";
+				enemydiv.style.marginLeft = pos + "px";
+				enemydiv.style.marginTop = "-130px";
+				
+				var imga1 = document.createElement("img");
+				var imga2 = document.createElement("img");
+				var imga3 = document.createElement("img");
+				var imga4 = document.createElement("img");
+				var imga5 = document.createElement("img");
+				var imga6 = document.createElement("img");
+				var imga7 = document.createElement("img");
+				var imga8 = document.createElement("img");
+
+				imga1.src = "asteroid1.png";
+				imga2.src = "asteroid2.png";
+				imga3.src = "asteroid3.png";
+				imga4.src = "asteroid4.png";
+				imga5.src = "asteroid5.png";
+				imga6.src = "asteroid6.png";
+				imga7.src = "Satelite.png";
+				imga8.src = "Ufo.png";
+				
+				enemydiv.setAttribute("id","e"+counter);
+				spielfeld.appendChild(enemydiv);
+				
+				switch (type) {
+					case 1:
+						enemydiv.appendChild(imga1);
+						enemydiv.setAttribute("class","imga1");
+					break;
+					case 2:
+						enemydiv.appendChild(imga2);
+						enemydiv.setAttribute("class","imga2");
+					break;
+					case 3:
+						enemydiv.appendChild(imga3);
+						enemydiv.setAttribute("class","imga3");
+					break;
+					case 4:
+						enemydiv.appendChild(imga4);
+						enemydiv.setAttribute("class","imga4");
+					break;
+					case 5:
+						enemydiv.appendChild(imga5);
+						enemydiv.setAttribute("class","imga5");
+					break;
+					case 6:
+						enemydiv.appendChild(imga6);
+						enemydiv.setAttribute("class","imga6");
+					break;
+					case 7:
+						enemydiv.appendChild(imga7);
+						enemydiv.setAttribute("class","imga7");
+					break;
+					case 8:
+						enemydiv.appendChild(imga8);
+						enemydiv.setAttribute("class","imga8");
+					break;
+					default:
+					break;
+				}
+			}
+			
+			function moveEnemies(){
+				for(var i = 0;i < enemies.length;i++){
+					var enemy = enemies[i];
+					updateEnemy(enemy);
+			
+				}
+			}
+			
+			function updateEnemy(enemy){
+				var enemyPosY = enemy.style.marginTop;
+				var enemyPosY = parseInt(enemyPosY);
+				
+				enemyPosY += enemySpeed;
+				enemyPosY= enemyPosY + "px";
+				enemy.style.marginTop = enemyPosY;				
+			}
+			
+			function changeDifficulty() {
+				i++;
+				n++;
+				f++;
+				m++;
+				if (i == 110) {
+					i = 0;
+					spawnMaxTime = spawnMaxTime - 2;
+				}
+				if (n == 2000) {
+					n = 0;
+					enemyAmountSpawn++;
+					enemySpeed = enemySpeed + 1;
+					spawnMaxTime = spawnMaxTime - 10;
+				}
+				if (f == 5000) {
+					f = 0;
+					enemyAmountSpawn = enemyAmountSpawn - 1;
+					enemySpeed = enemySpeed - 1;
+					spawnMaxTime = spawnMaxTime - 20;
+				}
+				if (m == 12000) {
+					m = 0;
+					enemyAmountSpawn = enemyAmountSpawn - 2;
+					enemySpeed = enemySpeed - 2;
+					spawnMaxTime = spawnMaxTime - 20;
+				}
+			}
+			
+			function deleteEnemies() {
+				
+				var keepEnemy =[];
+				var deleteEnemy=[];
+				
+				for(var i = 0;i < enemies.length;i++){
+					
+					var enemyTop = enemies[i];
+					var marginTop = parseInt(enemyTop.style.marginTop);
+					if (marginTop <= 1000) {
+						keepEnemy.push(enemies[i]);
+						//console.log(keepEnemy);
+					}
+					else{
+						deleteEnemy.push(enemies[i]);
+					}
+					
+				}
+				
+				deleteEnemy.forEach(function(delet){
+					document.getElementById("spielfeld").removeChild(delet);
+				});
+				enemies=[];
+				enemies= keepEnemy;
+				//console.log(enemies.length);
+			}
+			
+			function createShoot(){
+				var spielfeld = document.getElementById("spielfeld");
+				var shootDiv = document.createElement("div");
+				var pos = document.getElementById("rkt").style.marginLeft;
+				rocketwidthInt = parseInt(rocketwidth);
+				posInt = parseInt(pos);
+				//console.log(pos);
+				rocketwidthInt = rocketwidthInt / 2;
+				posInt = posInt+ rocketwidthInt;
+				var schussIMG = document.createElement("img");
+				schuesse.push(shootDiv);
+				shootDiv.style.position= "absolute";
+				shootDiv.style.marginLeft = posInt+"px";
+				shootDiv.style.marginTop = "750px";
+				spielfeld.appendChild(shootDiv);
+				schussIMG.src = "Laser.png";
+				shootDiv.appendChild(schussIMG);
+			}
+			
+			function updateShoots(){
+				for(var i = 0;i < schuesse.length;i++){
+					var schuss = schuesse[i];
+					var stelle = i
+					updateShoot(schuss);			
+				}
+
+			}
+			
+			function updateShoot(schuss){
+				var schussPosY = schuss.style.marginTop;
+				var schussPosY = parseInt(schussPosY);
+				schussPosY -= MissleSpeed;
+				schussPosY= schussPosY + "px";
+				schuss.style.marginTop = schussPosY;
+				
+			}
+			
+			function deleteShoots() {
+				
+				var keepShoot =[];
+				var deleteShoot=[];
+				
+				for(var i = 0;i < schuesse.length;i++){
+					
+					var shootTop = schuesse[i];
+					var marginTop = parseInt(shootTop.style.marginTop);
+					if (marginTop > 0) {
+						keepShoot.push(schuesse[i]);
+					}
+					else{
+						deleteShoot.push(schuesse[i]);
+					}
+					
+				}
+				
+				deleteShoot.forEach(function(delet){
+					document.getElementById("spielfeld").removeChild(delet);
+				});
+				schuesse=[];
+				schuesse= keepShoot;
+			}
+			
+			function kollisionLaser(){
+			
+				var keepAsteroid=[];
+				var deleteAsteroid=[];
+			
+				for(var i = 0;i < enemies.length;i++){
+					var as = enemies[i];
+					var asTop = as.style.marginTop;
+					var asLeft = as.style.marginLeft;
+					
+					for(var j = 0; j<schuesse.length;j++){
+					
+						var sc = schuesse[j];
+						var scTop = sc.style.marginTop;
+						var scLeft = sc.style.marginLeft;
+						
+						scTop = parseInt(scTop);
+						scLeft = parseInt(scLeft);
+						
+						asTop = parseInt(asTop);
+						asLeft = parseInt(asLeft);
+						
+						var difTop = Math.abs(asTop-scTop);
+						var difLeft = Math.abs(asLeft-scLeft);
+												
+						if(difTop<50 && difLeft<50){
+						
+							console.log("Treffer");
+							
+							deleteAsteroid.push(as);
+							
+						}
+						else{
+							keepAsteroid.push(as);
+						}
+					}
+
+
+				}
+				
+				deleteAsteroid.forEach(function(delet){
+					document.getElementById("spielfeld").removeChild(delet);
+				});
+				
+				enemies=[];
+				enemies= keepAsteroid;
+			}
+			
+			function spawnPowerup(){
+				if (spawnTimeP < spawnMaxTimeP) {
+					spawnTimeP++;
+				} else {
+					if (powerups.length < 3){
+						spawnTimeP = 0;
+						for(counter = 0; counter < enemyAmountSpawnP; counter++){
+							var minPos = -50;
+							var maxPos = 1500;
+							var pos = Math.floor(Math.random() * (maxPos - minPos)) + minPos;
+							var minType = 1;
+							var maxType = 5;
+							var type = Math.floor(Math.random() * (maxType - minType)) + minType;
+
+							enemyPowerup(pos, type, zahlIdPowerup);
+							zahlIdPowerup++;
+						}
+					}
+				}
+			}
+			
+			function enemyPowerup(pos, type,counter){
+				var spielfeld= document.getElementById("spielfeld");
+				
+				var powerupdiv = document.createElement("div");
+				powerups.push(powerupdiv);
+				//console.log(powerups);
+				powerupdiv.style.position= "absolute";
+				powerupdiv.style.marginLeft = pos + "px";
+				powerupdiv.style.marginTop = "-130px";
+				var imga1 = document.createElement("img");
+				var imga2 = document.createElement("img");
+				var imga3 = document.createElement("img");
+				var imga4 = document.createElement("img");
+
+				imga1.src = "lebensPunkt100x100.png";
+				imga2.src = "Schild_Item.png";
+				imga3.src = "slowdownPowerUp.png";
+				imga4.src = "speedPowerUp.png";
+
+				spielfeld.appendChild(powerupdiv);
+				
+				switch (type) {
+					case 1:
+						powerupdiv.setAttribute("class","powerup");
+						powerupdiv.setAttribute("id","Leben");
+						powerupdiv.appendChild(imga1);
+					break;
+					case 2:
+						powerupdiv.setAttribute("class","powerup");
+						powerupdiv.setAttribute("id","Schild");
+						powerupdiv.appendChild(imga2);
+					break;
+					case 3:
+						powerupdiv.setAttribute("class","powerup");
+						powerupdiv.setAttribute("id","sDown");
+						powerupdiv.appendChild(imga3);
+					break;
+					case 4:
+						powerupdiv.setAttribute("class","powerup");
+						powerupdiv.setAttribute("id","sUp");
+						powerupdiv.appendChild(imga4);
+					break;
+					default:
+					break;
+				}
+			}
+			
+			function movePowerups(){
+				for(var i = 0;i < powerups.length;i++){
+					var powerup = powerups[i];
+					updatePowerups(powerup);
+			
+				}
+			}
+			
+			function updatePowerups(powerup){
+				var powerupPosY = powerup.style.marginTop;
+				var powerupPosY = parseInt(powerupPosY);
+				powerupPosY += enemySpeed;
+				powerupPosY= powerupPosY + "px";
+				powerup.style.marginTop = powerupPosY;				
+			}
+			
+			function deletePowerUp() {
+				
+				var keepPowerup =[];
+				var deletePowerup=[];
+				
+				for(var i = 0;i < powerups.length;i++){
+					
+					var powerupTop = powerups[i];
+					var marginTop = parseInt(powerupTop.style.marginTop);
+					if (marginTop <= 1000) {
+						keepPowerup.push(powerups[i]);
+						//console.log(keepPowerup);
+					}
+					else{
+						deletePowerup.push(powerups[i]);
+					}
+					
+				}
+				
+				deletePowerup.forEach(function(delet){
+					document.getElementById("spielfeld").removeChild(delet);
+				});
+				powerups=[];
+				powerups= keepPowerup;
+				//console.log(powerups.length);
+			}
+			
+			function powerupEnemyFast() {
+				console.log("Slow");
+				
+				enemySpeed = enemySpeed - 2;
+				
+				setTimeout(function(){
+					enemySpeed= enemySpeed+2;
+				},5000);
+				
+			}
+			
+			function powerupEnemySlow() {
+				console.log("Fast");
+				
+				enemySpeed = enemySpeed +2;
+				
+				setTimeout(function(){
+					enemySpeed= enemySpeed-2;
+				},5000);
+				
+			}
+			
+			function powerupShield() {
+				console.log("+Schild");
+				shield=true;
+				setTimeout(function(){
+					shield = false;
+					console.log("-Schild");	
+				}, 10000);
+				
+				
+			}
+			
+			function powerupExtraHerz() {
+				extraHerzen++;
+				console.log("+Herz");
+			}
+				
+			function collectPowerup () {
+				
+				deletePowerup=[];
+				keepPowerup=[];
+			
+				for (var i = 0; i<powerups.length;i++) {
+					
+					//Koordinaten Powerup
+					var pu = powerups[i];
+					var puTop = pu.style.marginTop;
+					var puLeft = pu.style.marginLeft;
+					
+					var rk = document.getElementById("rkt");
+					var rkLeft = rk.style.marginLeft;
+					
+					var art = pu.id;
+										
+					puTop = parseInt(puTop);
+					puLeft = parseInt(puLeft);
+					rkLeft = parseInt(rkLeft);
+										
+					var difTop = Math.abs(puTop-750);
+					var difLeft = Math.abs(puLeft-rkLeft);
+					
+					if(difTop<50 && difLeft<100) {
+						
+						
+						
+						
+						switch (art){
+						
+							case "Leben":
+								console.log(art + " eingesammelt!")
+								powerupExtraHerz();
+								deletePowerup.push(pu);
+								break;
+							
+							case "Schild":
+								console.log(art + " eingesammelt!")
+								powerupShield();
+								deletePowerup.push(pu);
+								break;
+								
+							case "sUp":
+								console.log(art + " eingesammelt!")
+								powerupEnemySlow();
+								deletePowerup.push(pu);
+								break;
+								
+							case "sDown":
+								console.log(art + " eingesammelt!")
+								powerupEnemyFast();
+								deletePowerup.push(pu);
+								break;
+							default:
+							break;
+						}
+						
+					}else{
+						keepPowerup.push(pu);
+					}
+		
+						
+				}
+				
+				deletePowerup.forEach(function(delet){
+					document.getElementById("spielfeld").removeChild(delet);
+				});
+				
+				powerups=[];
+				powerups= keepPowerup;
+			}
+			
+			function stop (Stopp) {
+			var pause1 = prompt ("Stopp, geben Sie 'Weiter' ein, wenn Sie weiterspielen möchten. Geben Sie 'Abbrechen' ein, wenn Sie zur Startseite zurückmöchten.");
+				if (pause1 == "Weiter" || pause1 == "weiter") {
+					alert ("Es geht gleich weiter");
+				}
+				else if (pause1 == "Abbrechen" || pause1 == "abbrechen") {
+					alert ("Sie kommen gleich zur Startseite");
+					window.open("start.html");
+				}
+				else {
+					var pause2 = prompt ("Das war keine gültige Eingabe, geben Sie 'Weiter' ein, wenn Sie weiterspielen möchten. Geben Sie 'Abbrechen' ein, wenn Sie zur Startseite zurückmöchten.");
+						if (pause2 == "Weiter" || pause2 == "weiter") {
+							alert ("Es geht gleich weiter");
+						}
+						else if (pause2 == "Abbrechen" || pause2 == "weiter") {
+							alert ("Sie kommen gleich zur Startseite");
+							window.open('start.html');
+						}
+				}
+			}
+			
+		});</script>
+	</head>
+	<body>
+		<div id="score">0</div>
+		<div id="Stopp" onclick="stop('Test')">
+			
+		</div>
+		<div id = "main">
+			<center>
+				<div id="spielfeld">
+				
+					<div id="rkt" style="margin-left: 0px; width:43px">
+						<img src="rakete.png" id="rktImgChange"alt="Selfhtml" />
+					</div>
+					<div id="Hintergrundbild" style=" position: absolute; z-index:0">
+					</div>
+					<div id="Hintergrundbild2" style=" position: absolute; z-index:0">
+					</div>
+				</div>
+							</center>
+				<input onclick= "window.location=('Vorlage.html')" type="button" value="Log out" />
+
+		</div>
+	</body>
+</html>
